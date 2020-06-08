@@ -1,0 +1,153 @@
+<!DOCTYPE html!> 
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Animated glTF in Location based AR.js</title>
+<!-- include A-Frame obviously -->	
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+<!-- include ar.js for A-Frame -->
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+<!--//add the function "animation-mixer" to the a-entity//-->
+    <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js" ></script>
+<!--    
+    <script> window.onload = () => {                       navigator.geolocation.getCurrentPosition((position) => {
+        document.querySelector('a-text').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
+      });
+     }
+    </script>
+    
+ include A-Frame "look-at" component	
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+-->
+    
+<!--    
+    
+<script>
+  var registerComponent = require('../core/component').registerComponent;
+var THREE = require('../lib/three');
+
+/**
+ * Camera component.
+ * Pairs along with camera system to handle tracking the active camera.
+ */
+module.exports.Component = registerComponent('camera', {
+  schema: {
+    active: {default: true},
+    far: {default: 10000},
+    fov: {default: 80, min: 0},
+    near: {default: 0.005, min: 0},
+    spectator: {default: false},
+    zoom: {default: 1, min: 0}
+  },
+
+  /**
+   * Initialize three.js camera and add it to the entity.
+   * Add reference from scene to this entity as the camera.
+   */
+  init: function () {
+    var camera;
+    var el = this.el;
+
+    // Create camera.
+    camera = this.camera = new THREE.PerspectiveCamera();
+    el.setObject3D('camera', camera);
+  },
+
+  /**
+   * Update three.js camera.
+   */
+  update: function (oldData) {
+    var data = this.data;
+    var camera = this.camera;
+
+    // Update properties.
+    camera.aspect = data.aspect || (window.innerWidth / window.innerHeight);
+    camera.far = data.far;
+    camera.fov = data.fov;
+    camera.near = data.near;
+    camera.zoom = data.zoom;
+    camera.updateProjectionMatrix();
+
+    this.updateActiveCamera(oldData);
+    this.updateSpectatorCamera(oldData);
+  },
+
+  updateActiveCamera: function (oldData) {
+    var data = this.data;
+    var el = this.el;
+    var system = this.system;
+    // Active property did not change.
+    if (oldData && oldData.active === data.active || data.spectator) { return; }
+
+    // If `active` property changes, or first update, handle active camera with system.
+    if (data.active && system.activeCameraEl !== el) {
+      // Camera enabled. Set camera to this camera.
+      system.setActiveCamera(el);
+    } else if (!data.active && system.activeCameraEl === el) {
+      // Camera disabled. Set camera to another camera.
+      system.disableActiveCamera();
+    }
+  },
+
+  updateSpectatorCamera: function (oldData) {
+    var data = this.data;
+    var el = this.el;
+    var system = this.system;
+    // spectator property did not change.
+    if (oldData && oldData.spectator === data.spectator) { return; }
+
+    // If `spectator` property changes, or first update, handle spectator camera with system.
+    if (data.spectator && system.spectatorCameraEl !== el) {
+      // Camera enabled. Set camera to this camera.
+      system.setSpectatorCamera(el);
+    } else if (!data.spectator && system.spectatorCameraEl === el) {
+      // Camera disabled. Set camera to another camera.
+      system.disableSpectatorCamera();
+    }
+  },
+
+  /**
+   * Remove camera on remove (callback).
+   */
+  remove: function () {
+    this.el.removeObject3D('camera');
+  }
+});</script>    
+
+-->
+    
+</head>
+  
+  
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene stats embedded
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+
+<a-assets>
+	<a-asset-item id="fireworks" responce-type="arraybuffer" src="./assets/Fireworks32blend.gltf"></a-asset-item>
+</a-assets>
+    
+<!--<a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0" data-aframe-default-camera></a-entity>  -->    
+<a-entity id="FW" gltf-model="#fireworks" scale="0.5 0.5 0.5" position="0 1.6 -6" animation-mixer ></a-entity>
+<a-plane position="0 0.00 -6" rotation="0 0 0" width="1.5" height="3" color="yellow" material='opacity: 1.0;'></a-plane> 
+<a-sky color="#000000" opacity="0.5"></a-sky>
+<!--
+<a-entity 
+          geometry="primitive: plane; width: 1.5; height: 3"
+          material="color: blue; opacity: 0.5" 
+          position="0 -0.15 -5" 
+          text="baseline: bottom; align: center; color: white; width: 1.5; letterSpacing: 25; lineHeight: 80; value: Petrov\nIvan Ivanovich\nПетров Petrov"></a-entity>
+      
+<a-plane position="0 0.00 -6" rotation="0 0 0" width="1.5" height="3" color="#dc7f70" material='opacity: 1.0;'></a-plane>      
+-->        
+
+
+
+      <a-camera gps-camera rotation-reader> </a-camera>
+    </a-scene>
+  </body>
+  </html>
