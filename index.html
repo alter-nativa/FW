@@ -10,6 +10,9 @@
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
 <!--//add the function "animation-mixer" to the a-entity//-->
     <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v6.0.0/dist/aframe-extras.min.js" ></script>
+<!--//add A-Frame particle-system-component//-->  
+	<script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+	  
 <!--    
     <script> window.onload = () => {                       navigator.geolocation.getCurrentPosition((position) => {
         document.querySelector('a-text').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
@@ -134,6 +137,22 @@ module.exports.Component = registerComponent('camera', {
 <!--<a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0" data-aframe-default-camera></a-entity>  -->    
 <a-entity id="FW" gltf-model="#fireworks" scale="0.5 0.5 0.5" position="0 1.6 -5" animation-mixer ></a-entity>
 <a-plane position="0 0.00 -6" rotation="0 0 0" width="1.5" height="3" color="yellow" material='opacity: 1.0;'></a-plane> 
+
+
+<a-entity rotation="-90 0 0">
+                    <a-entity 
+                        position="0 -7 -15" 
+                        particle-system="
+                            preset: default; 
+                            color: #f9e154; 
+                            accelerationValue: 0, -10, 0; 
+                            particleCount: 3000;
+                            direction: -1;
+                            rotationAxis: z;
+                            rotation: -90, 0, 0">
+                    </a-entity>
+</a-entity>	    
+	    
 <a-sky color="#000000" opacity="0.5"></a-sky>
 <!--
 <a-entity 
