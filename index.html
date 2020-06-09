@@ -132,6 +132,7 @@ module.exports.Component = registerComponent('camera', {
 
 <a-assets>
 	<a-asset-item id="fireworks"  src="Fireworks7blend.gltf"></a-asset-item>
+	<img id="blob" src="blob.png">
 </a-assets>
     
 <!--<a-entity camera="active: true" look-controls wasd-controls position="0 1.6 0" data-aframe-default-camera></a-entity>  -->    
@@ -152,7 +153,17 @@ module.exports.Component = registerComponent('camera', {
                             rotation: -90, 0, 0">
                     </a-entity>
 <a-entity position="0 0 -4" particle-system="color: red, blue"></a-entity>    
-	    
+	            <a-entity 
+                        position="1 0 -4" 
+                        particle-system="
+                            texture: #blob;
+                            color: green; 
+                            accelerationValue: 0, -5, 0; 
+                            particleCount: 1000;
+                            direction: -1;
+                            rotationAxis: z;
+                            rotation: -90, 0, 0">
+                    </a-entity>    
 	    
 	    
 	    
